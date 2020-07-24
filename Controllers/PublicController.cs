@@ -9,14 +9,14 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace HairDemoSite.Controllers
 {
-    [AllowAnonymous]
-    public class PublicController : Controller
-    {
-        [AllowAnonymous]
-        public ActionResult Index()
-        {
-            return View();
-        }
+    //[AllowAnonymous]
+    //public class PublicController : Controller
+    //{
+    //    [AllowAnonymous]
+    //    public ActionResult Index()
+    //    {
+    //        return View();
+    //    }
 
-    }
+    //}
 }

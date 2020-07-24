@@ -60,9 +60,20 @@ namespace HairDemoSite
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                //endpoints.MapControllerRoute(
+                //    name: "default",
+                //    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapAreaControllerRoute(
+                    name: "PublicArea",
+                    areaName: "Public",
+                    pattern: "/{controller=Main}/{action=Index}/{id?}");
+
+                endpoints.MapAreaControllerRoute(
+                    name: "ClientAdminArea",
+                    areaName: "ClientAdmin",
+                    pattern: "ClientAdmin/{controller=Admin}/{action=Index}/{id?}");
+
                 endpoints.MapRazorPages();
             });
         }
