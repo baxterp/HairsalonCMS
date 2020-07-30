@@ -2,12 +2,13 @@
 
 @{
     ViewData["Title"] = "Create";
+    Layout = "~/Areas/ClientAdmin/Views/_Layout.cshtml";
 }
 <h1>Create Role</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-controller="Role" asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
@@ -26,4 +27,7 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-}  
+}
+
+<script src="~/public/js/jquery.min.js"></script>
+<script src="~/public/js/bootstrap.min.js"></script>

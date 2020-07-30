@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<Microsoft.AspNetCore.Identity.IdentityRole>
 @{
     ViewData["Title"] = "Index";
+    Layout = "~/Areas/ClientAdmin/Views/_Layout.cshtml";
 }
 
 <h1>List of Roles</h1>
@@ -22,4 +23,7 @@
 
         }
     </tbody>
-</table>  
+</table>
+
+<script src="~/public/js/jquery.min.js"></script>
+<script src="~/public/js/bootstrap.min.js"></script>

@@ -10,7 +10,7 @@ using HairDemoSite.Areas.Identity;
 namespace HairDemoSite.Areas.ClientAdmin.Controllers
 {
     [Area("ClientAdmin")]
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class RoleController : Controller
     {
         RoleManager<IdentityRole> roleManager;
@@ -27,6 +27,7 @@ namespace HairDemoSite.Areas.ClientAdmin.Controllers
             return View(roles);
         }
 
+        [HttpGet]
         [Route("ClientAdmin/CreateRole")]
         public IActionResult Create()
         {
@@ -34,11 +35,19 @@ namespace HairDemoSite.Areas.ClientAdmin.Controllers
         }
 
         [HttpPost]
-        [Route("ClientAdmin/CreateRolePost")]
+        [Route("ClientAdmin/CreateRole")]
         public async Task<IActionResult> Create(IdentityRole role)
         {
-            await roleManager.CreateAsync(role);
-            return RedirectToAction("Index");
+            try
+            {
+                await roleManager.CreateAsync(role);
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
         }
     }
 }

@@ -35,8 +35,6 @@ namespace HairDemoSite
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            //services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
-
             services.AddControllersWithViews();
             services.AddRazorPages();
         }
