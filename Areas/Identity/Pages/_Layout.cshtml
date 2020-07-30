@@ -1,0 +1,30 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="~/public/img/core-img/favicon.ico">
+
+    <!-- Stylesheet -->
+    <link href="~/admin/css/bootstrap-spacelab.min.css" rel="stylesheet" />
+    <link href="~/admin/css/admin.css" rel="stylesheet" />
+</head>
+<body>
+    <div style="padding-top:50px" />
+    <div class="container">
+        @RenderBody()
+    </div>
+
+    @RenderSection("Scripts", required: false)
+
+    <script src="~/admin/js/jquery.min.js"></script>
+    <script src="~/admin/js/bootstrap.min.js"></script>
+</body>
+</html>

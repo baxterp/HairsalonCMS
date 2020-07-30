@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace HairDemoSite.Areas.ClientAdmin.Controllers
 {
     [Area("ClientAdmin")]
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     public class AdminController : Controller
     {
         public IActionResult Index()
