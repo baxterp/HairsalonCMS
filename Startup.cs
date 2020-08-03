@@ -12,6 +12,8 @@ using HairDemoSite.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Http;
+using HairDemoSite.Areas.ClientAdmin.Data.Identity;
 
 namespace HairDemoSite
 {
@@ -27,13 +29,26 @@ namespace HairDemoSite
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("SiteConnection")));
+            //services.AddHttpsRedirection(options =>
+            //{
+            //    options.RedirectStatusCode = StatusCodes.Status308PermanentRedirect;
+            //    options.HttpsPort = 443;
+            //});
+
+            //services.AddDbContext<ApplicationDbContext>(options =>
+            //    options.UseSqlServer(Configuration.GetConnectionString("SiteConnection")));
+
+            //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            //    .AddRoles<IdentityRole>()
+            //    .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddDbContext<LoginDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("SiteConnection")));
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<LoginDbContext>()
+                .AddDefaultTokenProviders();
 
             services.AddControllersWithViews();
             services.AddRazorPages();
