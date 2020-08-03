@@ -24,7 +24,16 @@
             @if (SignInManager.IsSignedIn(User))
             {
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col">
+                        <div class="float-right">
+                            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Admin", new { area = "ClientAdmin" })" )>
+                                <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
                         <div class="h5" style="padding-left:10px">
                             Hello: @User.Identity.Name !
                         </div>

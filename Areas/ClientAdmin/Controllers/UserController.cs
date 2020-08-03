@@ -15,7 +15,8 @@ namespace HairDemoSite.Areas.ClientAdmin.Controllers
         [Route("ClientAdmin/CreateUser")]
         public IActionResult Index()
         {
-            return View();
+            return RedirectToRoute("Identity");
+            //return View();
         }
     }
 }
