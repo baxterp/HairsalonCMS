@@ -1,8 +1,93 @@
-﻿
+﻿@model HairDemoSite.Areas.Public.Models.StartPageData;
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/ClientAdmin/Views/_Layout.cshtml";
 }
 
+<div class="row" style="padding: 15px">
+    <div class="col-xl-12">
+        <div class="h3">Start Page</div>
+        <hr />
+    </div>
+</div>
+<div class="row" style="padding-left:15px; padding-right:15px;">
+    <div class="col-xl-12">
+        <div class="h4">Header Carousel</div>
+    </div>
+</div>
+<div class="row" style="padding-left:15px; padding-right:15px;">
+    <div class="col-xl-12">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Tile Image</th>
+                    <th scope="col">Tile Title</th>
+                    <th scope="col">Tile Text</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var tile in Model.HeaderCarousel.Tiles)
+                {
+                    <tr>
+                        <td><img src="@tile.TileImageLocation" style="max-height:100px" /></td>
+                        <td>@tile.TileTitle</td>
+                        <td>@tile.TileMessage</td>
+                        <td style="vertical-align:central">
+                            <button id="#@tile.TileID" type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal" onclick="setDelId(this.id)">X</button>
+                        </td>
+                    </tr>
+                }
+                <tr>
+                    <td class="h5">Add new Tile to Carousel</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            <tr>
+                <td><textarea class="form-control" style="min-height:100px; min-width:25px"></textarea></td>
+                <td><textarea class="form-control" style="min-height:100px; min-width:50px"></textarea></td>
+                <td><textarea class="form-control" style="min-height:100px; min-width:100px"></textarea></td>
+                <td style="vertical-align:central">
+                    <button type="button" class="btn btn-primary">Save</button>
+                </td>
+            </tr>
 
-<div class="h3">Admin Home</div>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true"  data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">Confirm action</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Do you want to delete this ??
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn-lg btn-secondary" onclick="deleteRow()">YES</button>
+                <button type="button" class="btn-lg btn-primary" data-dismiss="modal">NO</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var delid = 0;
+
+    function deleteRow() {
+        $('#confirmModal').modal('hide');
+        console.log(delId);
+        //location.reload();
+    }
+
+    function setDelId(id) {
+        delId = id;
+    }
+    
+</script>

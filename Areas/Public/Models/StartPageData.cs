@@ -20,8 +20,8 @@ namespace HairDemoSite.Areas.Public.Models
         public Carousel()
         {
             Tiles = new List<CarouselData> {
-                                                new CarouselData { TileImageLocation = "public/img/bg-img/16.jpg", TileMessage = "“Discover your own style. Don't try to repeat what has already been written - have the courage to do your own thing and don't be afraid to do something different.”", TileTitle = "We Care About Your Hair" },
-                                                new CarouselData { TileImageLocation = "public/img/bg-img/17.jpg", TileMessage = "“Discover your own style. Don't try to repeat what has already been written - have the courage to do your own thing and don't be afraid to do something different.”", TileTitle = "We Care About Your Hair" }
+                                                new CarouselData { TileImageLocation = "public/img/bg-img/16.jpg", TileMessage = "“Discover your own style. Don't try to repeat what has already been written - have the courage to do your own thing and don't be afraid to do something different.”", TileTitle = "We Care About Your Hair", TileID = 1 },
+                                                new CarouselData { TileImageLocation = "public/img/bg-img/17.jpg", TileMessage = "“Discover your own style. Don't try to repeat what has already been written - have the courage to do your own thing and don't be afraid to do something different.”", TileTitle = "We Care About Your Hair", TileID = 2 }
                                             };
         }
 
@@ -30,6 +30,7 @@ namespace HairDemoSite.Areas.Public.Models
 
     public class CarouselData
     {
+        public int TileID { get; set; }
         public string TileImageLocation { get; set; }
         public string TileTitle { get; set; }
         public string TileMessage { get; set; }
