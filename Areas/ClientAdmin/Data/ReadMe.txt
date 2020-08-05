@@ -3,7 +3,7 @@
 Scaffold-DbContext "Server=sql7.hostinguk.net;Database=hairdemo;integrated security=False;User ID=hairdemo;Password=::L1ghting" Microsoft.EntityFrameworkCore.SqlServer -OutputDir "Areas/ClientAdmin/Data" -Context "cmsDbContext"
 
 
-Scaffold-DbContext "Server=sql7.hostinguk.net;Database=hairdemo;integrated security=False;User ID=hairdemo;Password=::L1ghting" Microsoft.EntityFrameworkCore.SqlServer -OutputDir "Areas/ClientAdmin/Models" -Context "cmsDbContext" -Tables "dbo.AspNetRoles", "dbo.AspNetRoleClaims"  
+Scaffold-DbContext "Server=sql7.hostinguk.net;Database=hairdemo;integrated security=False;User ID=hairdemo;Password=::L1ghting" Microsoft.EntityFrameworkCore.SqlServer -OutputDir "Areas/Public/Data/SiteData" -Context "siteDataDbContext" -Tables "dbo.mpCarousel"  
 
 
 

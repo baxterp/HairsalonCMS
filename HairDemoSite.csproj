@@ -21,7 +21,6 @@
 
   <ItemGroup>
     <Folder Include="Areas\ClientAdmin\Models\" />
-    <Folder Include="Areas\Public\Data\" />
     <Folder Include="Controllers\" />
     <Folder Include="wwwroot\admin\img\" />
     <Folder Include="wwwroot\admin\js\" />

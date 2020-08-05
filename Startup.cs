@@ -14,6 +14,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Http;
 using HairDemoSite.Areas.ClientAdmin.Data.Identity;
+using HairDemoSite.Areas.Public.Data.SiteData;
+using HairDemoSite.Areas.Public.Models;
 
 namespace HairDemoSite
 {
@@ -42,6 +44,9 @@ namespace HairDemoSite
             //    .AddRoles<IdentityRole>()
             //    .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            services.AddDbContext<siteDataDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("SiteConnection")));
+
             services.AddDbContext<LoginDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("SiteConnection")));
 
@@ -49,6 +54,8 @@ namespace HairDemoSite
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<LoginDbContext>()
                 .AddDefaultTokenProviders();
+
+            services.AddTransient<StartPageData>();
 
             services.AddControllersWithViews();
             services.AddRazorPages();

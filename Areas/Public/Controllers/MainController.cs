@@ -12,12 +12,12 @@ namespace HairDemoSite.Areas.Public.Controllers
     [AllowAnonymous]
     public class MainController : Controller
     {
-        public MainController()
-        {
-            startPageData = new StartPageData();
-        }
-
         StartPageData startPageData = null;
+
+        public MainController(StartPageData startPageData)
+        {
+            this.startPageData = startPageData;
+        }
 
         public IActionResult Index()
         {
