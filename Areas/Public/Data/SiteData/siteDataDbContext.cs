@@ -16,12 +16,13 @@ namespace HairDemoSite.Areas.Public.Data.SiteData
         }
 
         public virtual DbSet<MpCarousel> MpCarousel { get; set; }
+        public virtual DbSet<MpFlatPageData> MpFlatPageData { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
 //            if (!optionsBuilder.IsConfigured)
 //            {
-////#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
 //                optionsBuilder.UseSqlServer("Server=sql7.hostinguk.net;Database=hairdemo;integrated security=False;User ID=hairdemo;Password=::L1ghting");
 //            }
         }
@@ -53,6 +54,18 @@ namespace HairDemoSite.Areas.Public.Data.SiteData
                 entity.Property(e => e.TileTitle)
                     .IsRequired()
                     .HasMaxLength(50)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<MpFlatPageData>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("mpFlatPageData", "dbo");
+
+                entity.Property(e => e.OurServicesMessage)
+                    .IsRequired()
+                    .HasMaxLength(200)
                     .IsUnicode(false);
             });
 

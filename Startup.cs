@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Http;
 using HairDemoSite.Areas.ClientAdmin.Data.Identity;
 using HairDemoSite.Areas.Public.Data.SiteData;
 using HairDemoSite.Areas.Public.Models;
+using Microsoft.Extensions.Logging;
 
 namespace HairDemoSite
 {
@@ -56,6 +57,7 @@ namespace HairDemoSite
                 .AddDefaultTokenProviders();
 
             services.AddTransient<StartPageData>();
+            services.AddLogging();
 
             services.AddControllersWithViews();
             services.AddRazorPages();

@@ -11,8 +11,10 @@ namespace HairDemoSite.Areas.Public.Models
         public StartPageData(siteDataDbContext context)
         {
             HeaderCarousel = new Carousel(context);
+            StartPageFlatData = new StartPageFlatData(context);
         }
 
         public Carousel HeaderCarousel { get; set; }
+        public StartPageFlatData StartPageFlatData { get; set; }
     }
 }

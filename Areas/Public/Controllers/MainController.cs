@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using HairDemoSite.Areas.Public.Models;
+using Microsoft.Extensions.Logging;
 
 namespace HairDemoSite.Areas.Public.Controllers
 {
@@ -12,16 +13,26 @@ namespace HairDemoSite.Areas.Public.Controllers
     [AllowAnonymous]
     public class MainController : Controller
     {
-        StartPageData startPageData = null;
+        private ILogger logger;
+        private StartPageData startPageData = null;
 
-        public MainController(StartPageData startPageData)
+        public MainController(StartPageData startPageData, ILogger<MainController> logger)
         {
             this.startPageData = startPageData;
+            this.logger = logger;
         }
 
         public IActionResult Index()
         {
-            return View(startPageData);
+            try
+            {
+                return View(startPageData);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                throw;
+            }
         }
 
         [Route("/Services")]
