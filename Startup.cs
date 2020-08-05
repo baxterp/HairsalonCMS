@@ -59,6 +59,7 @@ namespace HairDemoSite
             services.AddTransient<StartPageData>();
             services.AddTransient<StartPageFlatData>();
             services.AddTransient<Carousel>();
+            services.AddTransient<ImageDBCreator>();
 
             services.AddLogging();
 

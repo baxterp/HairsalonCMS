@@ -29,14 +29,14 @@
             <tbody>
                 @foreach (var tile in Model.HeaderCarousel.Tiles)
                 {
-                    <tr>
-                        <td><img src="@tile.TileImageLocation" style="max-height:100px" /></td>
-                        <td>@tile.TileTitle</td>
-                        <td>@tile.TileMessage</td>
-                        <td style="vertical-align:central">
-                            <button id="#@tile.TileID" type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal" onclick="setDelId(this.id)">X</button>
-                        </td>
-                    </tr>
+                <tr>
+                    <td><img src="@tile.TileImageLocation" style="max-height:100px" /></td>
+                    <td>@tile.TileTitle</td>
+                    <td>@tile.TileMessage</td>
+                    <td style="vertical-align:central">
+                        <button id="@tile.TileID" type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal" onclick="setDelId(this.id)">X</button>
+                    </td>
+                </tr>
                 }
                 <tr>
                     <td class="h5">Add new Tile to Carousel</td>
@@ -44,21 +44,30 @@
                     <td></td>
                     <td></td>
                 </tr>
-            <tr>
-                <td><textarea class="form-control" style="min-height:100px; min-width:25px"></textarea></td>
-                <td><textarea class="form-control" style="min-height:100px; min-width:50px"></textarea></td>
-                <td><textarea class="form-control" style="min-height:100px; min-width:100px"></textarea></td>
-                <td style="vertical-align:central">
-                    <button type="button" class="btn btn-primary">Save</button>
-                </td>
-            </tr>
+                <tr>
+                    <td style="height: 150px; width:200px; max-width:200px; text-align:left">
+                        <img id="previewImage" src="~/public/img/bg-img/1.jpg" style="height:100%; width:100%; object-fit: contain; padding-bottom:10px;" />
+                        <select name="cars" id="cars" onchange="setPreviewImage(this.value)">
+                            @foreach (var image in Model.PublicImages)
+                            {
+                                <option value="@image.ImageLocation">@image.ImageName</option>
+                            }
+                        </select>
+                    </td>
+                    <td><textarea id="txtNewTileTitle" class="form-control" style="height:150px; min-width:100px"></textarea></td>
+                    <td><textarea id="txtNewTileMessage" class="form-control" style="height:150px; min-width:100px"></textarea></td>
+                    <td style="vertical-align:central">
+                        <button type="button" class="btn btn-primary" onclick="saveNewTile()">Save</button>
+                    </td>
+                </tr>
 
             </tbody>
         </table>
     </div>
 </div>
+
 <!-- Modal -->
-<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true"  data-backdrop="static" data-keyboard="false">
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -78,16 +87,73 @@
     </div>
 </div>
 <script>
-    var delid = 0;
+    var delID = 0;
+
+    function replaceAll(string, search, replace) {
+        return string.split(search).join(replace);
+    }
+
+    function saveNewTile() {
+        var newImageLocation = $('#previewImage').attr('src');
+
+        var newTileTitle = $('#txtNewTileTitle').val();
+        var newTileMessage = $('#txtNewTileMessage').val();
+
+        console.log('newImageLocation : ' + newImageLocation + ', newTileTitle : ' + newTileTitle + ', newTileMessage : ' + newTileMessage);
+
+        var data = JSON.stringify({
+            ImageLocation: newImageLocation,
+            TileTitle: newTileTitle,
+            TileMessage: newTileMessage
+        });
+
+        $.ajax({
+            url: 'API/MPCarousel/',
+            type: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            data: data,
+            success: function (result) {
+                console.log('Success: ' + result);
+                location.reload();
+            },
+            error: function (data) {
+                console.log('Error: ' + data);
+            }
+        });
+
+    }
+
+    function setPreviewImage(imageLocation) {
+        console.log('Image Location' + imageLocation)
+
+        $('#previewImage').attr("src", imageLocation);
+    }
 
     function deleteRow() {
         $('#confirmModal').modal('hide');
-        console.log(delId);
+        console.log('delID = ' + delID);
+
+        $.ajax({
+            url: 'API/MPCarousel/' + delID,
+            type: 'DELETE',
+            success: function (result) {
+                console.log('Success: ' + result);
+                location.reload();
+            },
+            error: function (data) {
+                console.log('Error: ' + data);
+            }
+        });
+
         //location.reload();
     }
 
     function setDelId(id) {
-        delId = id;
+        delID = id;
+        console.log('delID SET to ' + delID);
     }
-    
+
 </script>

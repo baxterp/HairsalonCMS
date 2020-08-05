@@ -17,6 +17,7 @@ namespace HairDemoSite.Areas.Public.Data.SiteData
 
         public virtual DbSet<MpCarousel> MpCarousel { get; set; }
         public virtual DbSet<MpFlatPageData> MpFlatPageData { get; set; }
+        public virtual DbSet<PublicImages> PublicImages { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -33,13 +34,11 @@ namespace HairDemoSite.Areas.Public.Data.SiteData
 
             modelBuilder.Entity<MpCarousel>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.TileId);
 
                 entity.ToTable("mpCarousel", "dbo");
 
-                entity.Property(e => e.TileId)
-                    .HasColumnName("TileID")
-                    .ValueGeneratedOnAdd();
+                entity.Property(e => e.TileId).HasColumnName("TileID");
 
                 entity.Property(e => e.TileImageLocation)
                     .IsRequired()
@@ -59,13 +58,33 @@ namespace HairDemoSite.Areas.Public.Data.SiteData
 
             modelBuilder.Entity<MpFlatPageData>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("mpFlatPageData", "dbo");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.OurServicesMessage)
                     .IsRequired()
                     .HasMaxLength(200)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<PublicImages>(entity =>
+            {
+                entity.HasKey(e => e.ImageId)
+                    .HasName("PK__publicIm__7516F4EC30F848ED");
+
+                entity.ToTable("publicImages", "dbo");
+
+                entity.Property(e => e.ImageId).HasColumnName("ImageID");
+
+                entity.Property(e => e.ImageLocation)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ImageName)
+                    .IsRequired()
+                    .HasMaxLength(100)
                     .IsUnicode(false);
             });
 

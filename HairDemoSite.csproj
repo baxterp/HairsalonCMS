@@ -17,11 +17,11 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.3" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
+    <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Areas\ClientAdmin\Models\" />
-    <Folder Include="Controllers\" />
     <Folder Include="wwwroot\admin\img\" />
     <Folder Include="wwwroot\admin\js\" />
     <Folder Include="wwwroot\admin\scss\" />
