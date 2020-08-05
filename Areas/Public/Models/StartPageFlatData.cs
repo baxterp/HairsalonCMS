@@ -20,7 +20,6 @@ namespace HairDemoSite.Areas.Public.Models
             }
             catch (Exception ex)
             {
-
                 throw;
             }
         }

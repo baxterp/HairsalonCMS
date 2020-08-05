@@ -57,6 +57,9 @@ namespace HairDemoSite
                 .AddDefaultTokenProviders();
 
             services.AddTransient<StartPageData>();
+            services.AddTransient<StartPageFlatData>();
+            services.AddTransient<Carousel>();
+
             services.AddLogging();
 
             services.AddControllersWithViews();

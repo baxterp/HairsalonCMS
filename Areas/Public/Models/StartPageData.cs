@@ -8,10 +8,10 @@ namespace HairDemoSite.Areas.Public.Models
 {
     public class StartPageData
     {
-        public StartPageData(siteDataDbContext context)
+        public StartPageData(Carousel headerCarousel, StartPageFlatData startPageFlatData)
         {
-            HeaderCarousel = new Carousel(context);
-            StartPageFlatData = new StartPageFlatData(context);
+            HeaderCarousel = headerCarousel;
+            StartPageFlatData = startPageFlatData;
         }
 
         public Carousel HeaderCarousel { get; set; }
