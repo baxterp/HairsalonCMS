@@ -20,36 +20,61 @@ namespace HairDemoSite.Controllers.API
             this.context = context;
         }
 
-        // GET: api/<MPServicesController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/<MPServicesController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<MPServicesController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        [ActionName("CreateNewService")]
+        public void CreateNewService(NewServiceDTO dto)
         {
+            try
+            {
+                int imageID = context.PublicImages
+                                        .Where(w => w.ImageLocation == dto.ImageLocation)
+                                        .Select(s2 => s2.ImageId).FirstOrDefault();
+
+                MpOurServices newService = new MpOurServices { ImageId = imageID, ServiceName = dto.ServiceTitle, ServiceDescription = dto.ServiceDescription };
+
+                context.MpOurServices.Add(newService);
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
         }
 
-        // PUT api/<MPServicesController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPost]
+        [ActionName("DeleteService")]
+        public void DeleteService(RequestData data)
         {
-        }
+            try
+            {
+                bool gotIntValue = int.TryParse(data.idString, out int id);
 
-        // DELETE api/<MPServicesController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+                if (gotIntValue && id > 0)
+                {
+                    var entrytoDelete = context.MpOurServices.Select(s => s).Where(w => w.ServiceId == id).FirstOrDefault();
+
+                    if (entrytoDelete != null)
+                    {
+                        context.MpOurServices.Remove(entrytoDelete);
+                        context.SaveChanges();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
         }
     }
+
+    public class NewServiceDTO
+    {
+        public string ImageLocation { get; set; }
+        public string ServiceTitle { get; set; }
+        public string ServiceDescription { get; set; }
+    }
+
 }

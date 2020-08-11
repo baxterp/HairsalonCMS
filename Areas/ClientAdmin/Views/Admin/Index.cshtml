@@ -34,7 +34,7 @@
                         <td>@tile.TileTitle</td>
                         <td>@tile.TileMessage</td>
                         <td style="vertical-align:central">
-                            <button id="@tile.TileID" type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal" onclick="setDelId(this.id)">X</button>
+                            <button id="@tile.TileID" type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModalCarousel" onclick="setDelIdCarousel(this.id)">X</button>
                         </td>
                     </tr>
                 }
@@ -46,39 +46,13 @@
                 </tr>
                 <tr>
                     <td style="height: 150px; width:200px; max-width:200px; text-align:left; overflow:visible">
-                        <img id="previewImage" src="~/public/img/bg-img/1.jpg" style="height:100%; width:100%; object-fit: contain; padding-bottom:10px;" />
-                        <select onchange="setPreviewImage(this.value)">
+                        <img id="previewImageCarousel" src="~/public/img/bg-img/1.jpg" style="height:100%; width:100%; object-fit: contain; padding-bottom:10px;" />
+                        <select onchange="setPreviewImageCarousel(this.value)">
                             @foreach (var image in Model.PublicImages)
                             {
                                 <option value="@image.ImageLocation">@image.ImageName</option>
                             }
                         </select>
-
-
-
-                        @*<div class="dropdown" >
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                        style="min-height:100px; max-height:100px">
-                                    <div id="imgSelected" style="min-height:80px; max-height:80px">
-                                        Select Image
-                                    </div>
-                                </button>
-                                <div class="dropdown-menu" id="imgDropDown" aria-labelledby="dropdownMenuButton">
-                                    @foreach (var image in Model.PublicImages)
-                                    {
-                                        <a class="dropdown-item" href="#">
-                                            <div>
-                                                <img src="@image.ImageLocation" id="@image.ImageName" style="max-height:100px" title="@image.ImageName" />
-                                            </div>
-                                        </a>
-
-                                    }
-                                </div>
-                            </div>*@
-
-
-
-
                     </td>
                     <td><textarea id="txtNewTileTitle" class="form-control" style="height:150px; min-width:100px"></textarea></td>
                     <td><textarea id="txtNewTileMessage" class="form-control" style="height:150px; min-width:100px"></textarea></td>
@@ -89,28 +63,69 @@
 
             </tbody>
         </table>
+        <hr />
     </div>
 </div>
 
-<script>
-    $(function () {
+<div class="row" style="padding-left:15px; padding-right:15px; padding-top:100px">
+    <div class="col-xl-12">
+        <div class="h4">Our Services</div>
+    </div>
+</div>
 
-        $("#imgDropDown .dropdown-item").click(function (data) {
+<div class="row" style="padding-left:15px; padding-right:15px;">
+    <div class="col-xl-12">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Service Image</th>
+                    <th scope="col">Service Title</th>
+                    <th scope="col">Servcies Description</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var service in Model.OurServicesData.OurServicesData)
+                {
+                    <tr>
+                        <td><img src="@service.ServiceImageLocation" style="max-height:100px" /></td>
+                        <td>@service.ServiceName</td>
+                        <td>@service.ServiceDescription</td>
+                        <td style="vertical-align:central">
+                            <button id="@service.ServiceID" type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModalServices" onclick="setDelIdServices(this.id)">X</button>
+                        </td>
+                    </tr>
+                }
+                <tr>
+                    <td class="h5">Add new service</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td style="height: 150px; width:200px; max-width:200px; text-align:left; overflow:visible">
+                        <img id="previewImageServices" src="~/public/img/bg-img/1.jpg" style="height:100%; width:100%; object-fit: contain; padding-bottom:10px;" />
+                        <select onchange="setPreviewImageServices(this.value)">
+                            @foreach (var image in Model.PublicImages)
+                            {
+                                <option value="@image.ImageLocation">@image.ImageName</option>
+                            }
+                        </select>
+                    </td>
+                    <td><textarea id="txtNewServiceTitle" class="form-control" style="height:150px; min-width:100px"></textarea></td>
+                    <td><textarea id="txtNewServiceDescription" class="form-control" style="height:150px; min-width:100px"></textarea></td>
+                    <td style="vertical-align:central">
+                        <button type="button" class="btn btn-primary" onclick="saveNewService()">Save</button>
+                    </td>
+                </tr>
 
-            var imageLocation = $('#' + data.target.id).attr('src');
-            var imageLocationSplit = imageLocation.split('/');
-            var imageName = imageLocationSplit[imageLocationSplit.length - 1];
-            $('#imgSelected').html('<img src="' + imageLocation + '"style="max-height:80px" title=' + imageName + ' />');
-
-            //alert(imageName);
-        });
-
-    });
-</script>
-
+            </tbody>
+        </table>
+    </div>
+</div>
 
 <!-- Modal -->
-<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+<div class="modal fade" id="confirmModalCarousel" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -123,7 +138,29 @@
                 Do you want to delete this ??
             </div>
             <div class="modal-footer justify-content-center">
-                <button type="button" class="btn-lg btn-secondary" onclick="deleteRow()">YES</button>
+                <button type="button" class="btn-lg btn-secondary" onclick="deleteRowCarousel()">YES</button>
+                <button type="button" class="btn-lg btn-primary" data-dismiss="modal">NO</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="confirmModalServices" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">Confirm action</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Do you want to delete this ??
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn-lg btn-secondary" onclick="deleteRowServices()">YES</button>
                 <button type="button" class="btn-lg btn-primary" data-dismiss="modal">NO</button>
             </div>
         </div>
@@ -132,14 +169,92 @@
 <!-- Modal -->
 
 <script>
-    var delID = 0;
+
+    var delIDServices = 0;
+
+    function saveNewService() {
+        var newImageLocationServices = $('#previewImageServices').attr('src');
+
+        var newServiceTitle = $('#txtNewServiceTitle').val();
+        var newServiceDescription = $('#txtNewServiceDescription').val();
+
+        console.log('newImageLocation : ' + newImageLocationServices + ', newTileTitle : ' + newServiceTitle + ', newTileMessage : ' + newServiceDescription);
+
+        var data = JSON.stringify({
+            ImageLocation: newImageLocationServices,
+            ServiceTitle: newServiceTitle,
+            ServiceDescription: newServiceDescription
+        });
+
+        $.ajax({
+            url: 'API/MPServices/CreateNewService',
+            type: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            data: data,
+            success: function (result) {
+                console.log('Success: ' + result);
+                location.reload();
+            },
+            error: function (data) {
+                console.log('Error: ' + data);
+            }
+        });
+
+    }
+
+    function setPreviewImageServices(imageLocation) {
+        console.log('Image Location' + imageLocation)
+        $('#previewImageServices').attr("src", imageLocation);
+    }
+
+    function deleteRowServices() {
+        $('#confirmModalServices').modal('hide');
+        console.log('delIDServices = ' + delIDServices);
+
+        var data = JSON.stringify({
+            idString: delIDServices
+        });
+
+        $.ajax({
+            url: 'API/MPServices/DeleteService',
+            data: data,
+            type: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            success: function (result) {
+                console.log('Success: ' + result);
+                location.reload();
+            },
+            error: function (data) {
+                console.log('Error: ' + data);
+            }
+        });
+    }
+
+    function setDelIdServices(id) {
+        delIDServices = id;
+        console.log('delIDServices SET to ' + delIDServices);
+    }
+
+
+</script>
+
+
+
+<script>
+    var delIDCarousel = 0;
 
     function replaceAll(string, search, replace) {
         return string.split(search).join(replace);
     }
 
     function saveNewTile() {
-        var newImageLocation = $('#previewImage').attr('src');
+        var newImageLocation = $('#previewImageCarousel').attr('src');
 
         var newTileTitle = $('#txtNewTileTitle').val();
         var newTileMessage = $('#txtNewTileMessage').val();
@@ -171,17 +286,17 @@
 
     }
 
-    function setPreviewImage(imageLocation) {
+    function setPreviewImageCarousel(imageLocation) {
         console.log('Image Location' + imageLocation)
-        $('#previewImage').attr("src", imageLocation);
+        $('#previewImageCarousel').attr("src", imageLocation);
     }
 
-    function deleteRow() {
+    function deleteRowCarousel() {
         $('#confirmModal').modal('hide');
-        console.log('delID = ' + delID);
+        console.log('delIDCarousel = ' + delIDCarousel);
 
         var data = JSON.stringify({
-            idString: delID
+            idString: delIDCarousel
         });
 
         $.ajax({
@@ -202,9 +317,9 @@
         });
     }
 
-    function setDelId(id) {
-        delID = id;
-        console.log('delID SET to ' + delID);
+    function setDelIdCarousel(id) {
+        delIDCarousel = id;
+        console.log('delIDCarousel SET to ' + delIDCarousel);
     }
 
 </script>
