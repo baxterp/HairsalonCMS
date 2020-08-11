@@ -59,6 +59,7 @@ namespace HairDemoSite
             services.AddTransient<StartPageData>();
             services.AddTransient<StartPageFlatData>();
             services.AddTransient<Carousel>();
+            services.AddTransient<OurServices>();
             services.AddTransient<ImageDBCreator>();
 
             services.AddLogging();
@@ -107,7 +108,7 @@ namespace HairDemoSite
 
                 endpoints.MapControllerRoute(
                     name: "API",
-                    pattern: "api/[controller]/[action]");
+                    pattern: "api/[controller]/[action]/{id?}");
 
             });
         }

@@ -17,6 +17,7 @@ namespace HairDemoSite.Areas.Public.Data.SiteData
 
         public virtual DbSet<MpCarousel> MpCarousel { get; set; }
         public virtual DbSet<MpFlatPageData> MpFlatPageData { get; set; }
+        public virtual DbSet<MpOurServices> MpOurServices { get; set; }
         public virtual DbSet<PublicImages> PublicImages { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -40,10 +41,7 @@ namespace HairDemoSite.Areas.Public.Data.SiteData
 
                 entity.Property(e => e.TileId).HasColumnName("TileID");
 
-                entity.Property(e => e.TileImageLocation)
-                    .IsRequired()
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
+                entity.Property(e => e.ImageId).HasColumnName("ImageID");
 
                 entity.Property(e => e.TileMessage)
                     .IsRequired()
@@ -54,6 +52,11 @@ namespace HairDemoSite.Areas.Public.Data.SiteData
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
+
+                entity.HasOne(d => d.Image)
+                    .WithMany(p => p.MpCarousel)
+                    .HasForeignKey(d => d.ImageId)
+                    .HasConstraintName("FK_mpCarousel_publicImages");
             });
 
             modelBuilder.Entity<MpFlatPageData>(entity =>
@@ -66,6 +69,34 @@ namespace HairDemoSite.Areas.Public.Data.SiteData
                     .IsRequired()
                     .HasMaxLength(200)
                     .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<MpOurServices>(entity =>
+            {
+                entity.HasKey(e => e.ServiceId)
+                    .HasName("PK__MpOurSer__C51BB0EA36B12243");
+
+                entity.ToTable("mpOurServices", "dbo");
+
+                entity.Property(e => e.ServiceId).HasColumnName("ServiceID");
+
+                entity.Property(e => e.ImageId).HasColumnName("ImageID");
+
+                entity.Property(e => e.ServiceDescription)
+                    .IsRequired()
+                    .HasMaxLength(500)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ServiceName)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.Image)
+                    .WithMany(p => p.MpOurServices)
+                    .HasForeignKey(d => d.ImageId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_mpOurServices_publicImages");
             });
 
             modelBuilder.Entity<PublicImages>(entity =>

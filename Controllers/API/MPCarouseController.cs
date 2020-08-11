@@ -20,41 +20,53 @@ namespace HairDemoSite.Controllers.API
             this.context = context;
         }
 
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
         [HttpPost]
         [ActionName("CreateNewTile")]
         public void CreateNewTile(NewTileDTO dto)
         {
+            try
+            {
+                int imageID = context.PublicImages
+                                        .Where(w => w.ImageLocation == dto.ImageLocation)
+                                        .Select(s2 => s2.ImageId).FirstOrDefault();
+
+                MpCarousel newCarouselTile = new MpCarousel { ImageId = imageID, TileMessage = dto.TileMessage, TileTitle = dto.TileTitle };
+
+                context.MpCarousel.Add(newCarouselTile);
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
         }
 
         [HttpPost]
         [ActionName("DeleteTile")]
-        public void DeleteTile(DeleteData data)
+        public void DeleteTile(RequestData data)
         {
-            int id = 0;
-            bool gotIntValue = int.TryParse(data.idString, out id);
-
-            if (gotIntValue && id > 0)
+            try
             {
-                var entrytoDelete = context.MpCarousel.Select(s => s).Where(w => w.TileId == id).FirstOrDefault();
+                bool gotIntValue = int.TryParse(data.idString, out int id);
 
-                if(entrytoDelete != null)
+                if (gotIntValue && id > 0)
                 {
-                    context.MpCarousel.Remove(entrytoDelete);
-                    context.SaveChanges();
+                    var entrytoDelete = context.MpCarousel.Select(s => s).Where(w => w.TileId == id).FirstOrDefault();
+
+                    if (entrytoDelete != null)
+                    {
+                        context.MpCarousel.Remove(entrytoDelete);
+                        context.SaveChanges();
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
         }
     }
 
@@ -65,7 +77,7 @@ namespace HairDemoSite.Controllers.API
         public string TileMessage { get; set; }
     }
 
-    public class DeleteData
+    public class RequestData
     {
         public string idString { get; set; }
     }

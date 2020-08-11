@@ -1,6 +1,7 @@
 ﻿using HairDemoSite.Areas.Public.Data.SiteData;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,9 +16,11 @@ namespace HairDemoSite.Areas.Public.Models
                 var carouselData = context.MpCarousel.Select(c => new CarouselData()
                 {
                     TileID = c.TileId,
-                    TileImageLocation = c.TileImageLocation,
                     TileTitle = c.TileTitle,
-                    TileMessage = c.TileMessage
+                    TileMessage = c.TileMessage,
+                    TileImageLocation = context.PublicImages
+                                            .Where(w => w.ImageId == c.ImageId)
+                                            .Select(s => s.ImageLocation).FirstOrDefault()
                 });
 
                 Tiles = carouselData.ToList();

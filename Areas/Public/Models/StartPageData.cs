@@ -8,10 +8,11 @@ namespace HairDemoSite.Areas.Public.Models
 {
     public class StartPageData
     {
-        public StartPageData(siteDataDbContext context, Carousel headerCarousel, StartPageFlatData startPageFlatData, ImageDBCreator imageDBCreator)
+        public StartPageData(siteDataDbContext context, Carousel headerCarousel, StartPageFlatData startPageFlatData, OurServices ourServices, ImageDBCreator imageDBCreator)
         {
             HeaderCarousel = headerCarousel;
             StartPageFlatData = startPageFlatData;
+            OurServicesData = ourServices;
 
             //imageDBCreator.CreateUpdateImagesData();
 
@@ -21,5 +22,6 @@ namespace HairDemoSite.Areas.Public.Models
         public Carousel HeaderCarousel { get; set; }
         public StartPageFlatData StartPageFlatData { get; set; }
         public List<PublicImages> PublicImages { get; set; }
+        public OurServices OurServicesData { get; set; }
     }
 }

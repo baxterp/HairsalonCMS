@@ -86,7 +86,7 @@
         @foreach (var tile in Model.HeaderCarousel.Tiles)
         {
             <!-- Single Welcome Slide -->
-            <div class="single-welcome-slide bg-img" style=" background-image: url('@tile.TileImageLocation');">
+            <div class="single-welcome-slide bg-img" style=" background-image: url(@tile.TileImageLocation);">
                 <!-- Welcome Content -->
                 <div class="welcome-content h-100">
                     <div class="container h-100">
@@ -127,16 +127,26 @@
 
         <div class="row">
 
-            <!-- Single Service Area -->
-            <div class="col-12 col-sm-6 col-lg-3">
+            @foreach (var service in Model.OurServicesData.OurServicesData)
+            {
+                <!-- Single Service Area -->
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="single-service-area mb-80 wow fadeInUp" data-wow-delay="200ms">
+                        <img src="~/@service.ServiceImageLocation" alt="">
+                        <h5>@service.ServiceName</h5>
+                        <p>@service.ServiceDescription</p>
+                    </div>
+                </div>
+            }
+
+
+            @*<div class="col-12 col-sm-6 col-lg-3">
                 <div class="single-service-area mb-80 wow fadeInUp" data-wow-delay="200ms">
                     <img src="~/public/img/core-img/s1.png" alt="">
                     <h5>Coloring</h5>
                     <p>Ut enim ad minim veniam, quis trud exercitation...</p>
                 </div>
             </div>
-
-            <!-- Single Service Area -->
             <div class="col-12 col-sm-6 col-lg-3">
                 <div class="single-service-area mb-80 wow fadeInUp" data-wow-delay="400ms">
                     <img src="~/public/img/core-img/s3.png" alt="">
@@ -145,7 +155,6 @@
                 </div>
             </div>
 
-            <!-- Single Service Area -->
             <div class="col-12 col-sm-6 col-lg-3">
                 <div class="single-service-area mb-80 wow fadeInUp" data-wow-delay="600ms">
                     <img src="~/public/img/core-img/s4.png" alt="">
@@ -153,15 +162,13 @@
                     <p>Nemo enim ipsam voluptatem quia voluptas</p>
                 </div>
             </div>
-
-            <!-- Single Service Area -->
             <div class="col-12 col-sm-6 col-lg-3">
                 <div class="single-service-area mb-80 wow fadeInUp" data-wow-delay="800ms">
                     <img src="~/public/img/core-img/hair-extensions.jpg" alt="">
                     <h5>Extensions</h5>
                     <p>Ut enim ad minim veniam, quis trud exercitation...</p>
                 </div>
-            </div>
+            </div>*@
 
         </div>
     </div>

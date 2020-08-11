@@ -45,7 +45,7 @@ namespace HairDemoSite.Areas.Public.Models
                     ImageName = name,
                     ImageHeight = height,
                     ImageWidth = width,
-                    ImageLocation = serverPath
+                    ImageLocation = serverPath.Replace(@"\", @"/")
                 };
 
                 fileData.Add(dataToSave);
