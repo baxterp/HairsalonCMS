@@ -9,7 +9,7 @@ using HairDemoSite.Areas.Public.Models;
 namespace HairDemoSite.Areas.ClientAdmin.Controllers
 {
     [Area("ClientAdmin")]
-    //[Authorize]
+    [Authorize]
     public class AdminController : Controller
     {
         StartPageData pageData = null;

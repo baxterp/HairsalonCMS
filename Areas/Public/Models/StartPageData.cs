@@ -14,10 +14,18 @@ namespace HairDemoSite.Areas.Public.Models
             StartPageFlatData = startPageFlatData;
             OurServicesData = ourServices;
 
+#if DEBUG
+            BackgroundImageStart = string.Empty;
+#else
+            BackgroundImageStart = "coretest/";
+#endif
+
             //imageDBCreator.CreateUpdateImagesData();
 
             PublicImages = context.PublicImages.ToList();
         }
+
+        public string BackgroundImageStart { get; set; }
 
         public Carousel HeaderCarousel { get; set; }
         public StartPageFlatData StartPageFlatData { get; set; }
