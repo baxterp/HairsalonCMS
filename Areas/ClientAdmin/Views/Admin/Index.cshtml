@@ -29,14 +29,14 @@
             <tbody>
                 @foreach (var tile in Model.HeaderCarousel.Tiles)
                 {
-                <tr>
-                    <td><img src="@tile.TileImageLocation" style="max-height:100px" /></td>
-                    <td>@tile.TileTitle</td>
-                    <td>@tile.TileMessage</td>
-                    <td style="vertical-align:central">
-                        <button id="@tile.TileID" type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal" onclick="setDelId(this.id)">X</button>
-                    </td>
-                </tr>
+                    <tr>
+                        <td><img src="@tile.TileImageLocation" style="max-height:100px" /></td>
+                        <td>@tile.TileTitle</td>
+                        <td>@tile.TileMessage</td>
+                        <td style="vertical-align:central">
+                            <button id="@tile.TileID" type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal" onclick="setDelId(this.id)">X</button>
+                        </td>
+                    </tr>
                 }
                 <tr>
                     <td class="h5">Add new Tile to Carousel</td>
@@ -45,14 +45,40 @@
                     <td></td>
                 </tr>
                 <tr>
-                    <td style="height: 150px; width:200px; max-width:200px; text-align:left">
+                    <td style="height: 150px; width:200px; max-width:200px; text-align:left; overflow:visible">
                         <img id="previewImage" src="~/public/img/bg-img/1.jpg" style="height:100%; width:100%; object-fit: contain; padding-bottom:10px;" />
-                        <select name="cars" id="cars" onchange="setPreviewImage(this.value)">
+                        <select onchange="setPreviewImage(this.value)">
                             @foreach (var image in Model.PublicImages)
                             {
                                 <option value="@image.ImageLocation">@image.ImageName</option>
                             }
                         </select>
+
+
+
+                        @*<div class="dropdown" >
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                        style="min-height:100px; max-height:100px">
+                                    <div id="imgSelected" style="min-height:80px; max-height:80px">
+                                        Select Image
+                                    </div>
+                                </button>
+                                <div class="dropdown-menu" id="imgDropDown" aria-labelledby="dropdownMenuButton">
+                                    @foreach (var image in Model.PublicImages)
+                                    {
+                                        <a class="dropdown-item" href="#">
+                                            <div>
+                                                <img src="@image.ImageLocation" id="@image.ImageName" style="max-height:100px" title="@image.ImageName" />
+                                            </div>
+                                        </a>
+
+                                    }
+                                </div>
+                            </div>*@
+
+
+
+
                     </td>
                     <td><textarea id="txtNewTileTitle" class="form-control" style="height:150px; min-width:100px"></textarea></td>
                     <td><textarea id="txtNewTileMessage" class="form-control" style="height:150px; min-width:100px"></textarea></td>
@@ -65,6 +91,23 @@
         </table>
     </div>
 </div>
+
+<script>
+    $(function () {
+
+        $("#imgDropDown .dropdown-item").click(function (data) {
+
+            var imageLocation = $('#' + data.target.id).attr('src');
+            var imageLocationSplit = imageLocation.split('/');
+            var imageName = imageLocationSplit[imageLocationSplit.length - 1];
+            $('#imgSelected').html('<img src="' + imageLocation + '"style="max-height:80px" title=' + imageName + ' />');
+
+            //alert(imageName);
+        });
+
+    });
+</script>
+
 
 <!-- Modal -->
 <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
@@ -86,6 +129,8 @@
         </div>
     </div>
 </div>
+<!-- Modal -->
+
 <script>
     var delID = 0;
 
@@ -108,7 +153,7 @@
         });
 
         $.ajax({
-            url: 'API/MPCarousel/',
+            url: 'API/MPCarousel/CreateNewTile',
             type: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -128,7 +173,6 @@
 
     function setPreviewImage(imageLocation) {
         console.log('Image Location' + imageLocation)
-
         $('#previewImage').attr("src", imageLocation);
     }
 
@@ -136,9 +180,18 @@
         $('#confirmModal').modal('hide');
         console.log('delID = ' + delID);
 
+        var data = JSON.stringify({
+            idString: delID
+        });
+
         $.ajax({
-            url: 'API/MPCarousel/' + delID,
-            type: 'DELETE',
+            url: 'API/MPCarousel/DeleteTile',
+            data: data,
+            type: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
             success: function (result) {
                 console.log('Success: ' + result);
                 location.reload();
@@ -147,8 +200,6 @@
                 console.log('Error: ' + data);
             }
         });
-
-        //location.reload();
     }
 
     function setDelId(id) {

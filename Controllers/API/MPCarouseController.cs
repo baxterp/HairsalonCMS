@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HairDemoSite.Controllers.API
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class MPCarouselController : ControllerBase
     {
@@ -33,14 +33,19 @@ namespace HairDemoSite.Controllers.API
         }
 
         [HttpPost]
-        public void Post(NewTileDTO dto)
+        [ActionName("CreateNewTile")]
+        public void CreateNewTile(NewTileDTO dto)
         {
         }
 
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpPost]
+        [ActionName("DeleteTile")]
+        public void DeleteTile(DeleteData data)
         {
-            if (id > 0)
+            int id = 0;
+            bool gotIntValue = int.TryParse(data.idString, out id);
+
+            if (gotIntValue && id > 0)
             {
                 var entrytoDelete = context.MpCarousel.Select(s => s).Where(w => w.TileId == id).FirstOrDefault();
 
@@ -58,5 +63,10 @@ namespace HairDemoSite.Controllers.API
         public string ImageLocation { get; set; }
         public string TileTitle { get; set; }
         public string TileMessage { get; set; }
+    }
+
+    public class DeleteData
+    {
+        public string idString { get; set; }
     }
 }

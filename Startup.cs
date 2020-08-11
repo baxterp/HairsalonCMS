@@ -105,7 +105,10 @@ namespace HairDemoSite
                     areaName: "ClientAdmin",
                     pattern: "ClientAdmin/{controller=Admin}/{action=Index}/{id?}");
 
-                endpoints.MapRazorPages();
+                endpoints.MapControllerRoute(
+                    name: "API",
+                    pattern: "api/[controller]/[action]");
+
             });
         }
     }
