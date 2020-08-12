@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\ClientAdmin\Models\" />
+    <Folder Include="Controllers\" />
     <Folder Include="wwwroot\admin\img\" />
     <Folder Include="wwwroot\admin\js\" />
     <Folder Include="wwwroot\admin\scss\" />
@@ -30,6 +30,7 @@
     <Folder Include="wwwroot\public\fonts\" />
     <Folder Include="wwwroot\public\img\bg-img\" />
     <Folder Include="wwwroot\public\img\core-img\" />
+    <Folder Include="wwwroot\public\img\saved\" />
     <Folder Include="wwwroot\public\js\default-assets\" />
     <Folder Include="wwwroot\public\scss\mixins\" />
     <Folder Include="wwwroot\public\scss\utilities\" />

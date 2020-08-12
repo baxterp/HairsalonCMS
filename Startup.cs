@@ -17,6 +17,7 @@ using HairDemoSite.Areas.ClientAdmin.Data.Identity;
 using HairDemoSite.Areas.Public.Data.SiteData;
 using HairDemoSite.Areas.Public.Models;
 using Microsoft.Extensions.Logging;
+using HairDemoSite.Areas.ClientAdmin.Models;
 
 namespace HairDemoSite
 {
@@ -38,13 +39,6 @@ namespace HairDemoSite
             //    options.HttpsPort = 443;
             //});
 
-            //services.AddDbContext<ApplicationDbContext>(options =>
-            //    options.UseSqlServer(Configuration.GetConnectionString("SiteConnection")));
-
-            //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-            //    .AddRoles<IdentityRole>()
-            //    .AddEntityFrameworkStores<ApplicationDbContext>();
-
             services.AddDbContext<siteDataDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("SiteConnection")));
 
@@ -61,6 +55,7 @@ namespace HairDemoSite
             services.AddTransient<Carousel>();
             services.AddTransient<OurServices>();
             services.AddTransient<ImageDBCreator>();
+            services.AddTransient<SiteImageModel>();
 
             services.AddLogging();
 
@@ -109,6 +104,8 @@ namespace HairDemoSite
                 endpoints.MapControllerRoute(
                     name: "API",
                     pattern: "api/[controller]/[action]/{id?}");
+
+                endpoints.MapRazorPages();
 
             });
         }

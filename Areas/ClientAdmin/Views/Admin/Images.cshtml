@@ -1,0 +1,108 @@
+﻿@model HairDemoSite.Areas.ClientAdmin.Models.SiteImageModel
+@{
+    ViewData["Title"] = "Images";
+    Layout = "~/Areas/ClientAdmin/Views/_Layout.cshtml";
+}
+
+<div class="row" style="padding: 15px">
+    <div class="col-xl-12">
+        <div class="h2">Site Images</div>
+        <hr />
+    </div>
+</div>
+
+<div class="row" style="padding-left:15px; padding-right:5px; padding-top: 10px; padding-bottom:70px">
+    <div class="col-lg-10">
+        <div class="h3">
+            File Upload
+        </div>
+        <form>
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="fileInput">
+                <label class="custom-file-label" for="fileInput">Choose file</label>
+            </div>
+            <div style="padding:10px">
+                <button id="btnUpload" class="btn btn-light disabled">Upload File</button>
+            </div>
+        </form>
+
+
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#btnUpload').addClass('disabled');
+        $('#btnUpload').prop('disabled', true);
+
+        $('#btnUpload').click(function (evt) {
+
+            evt.preventDefault();
+
+            if (window.FormData !== undefined) {
+
+                var fileUpload = $("#fileInput").get(0);
+                var files = fileUpload.files;
+                var fileData = new FormData();
+                for (var i = 0; i < files.length; i++) {
+                    fileData.append(files[i].name, files[i]);
+                }
+
+                console.log('Files : ' + files);
+                console.log('File Data : ' + fileData);
+
+                $.ajax({
+                    url: '/ClientAdmin/Admin/FileUpload',
+                    type: "POST",
+                    contentType: false,
+                    processData: false,
+                    data: fileData,
+                    success: function (result) {
+                        console.log('Upload success : ' + result);
+                        location.reload();
+                    },
+                    error: function (err) {
+                        console.log('Upload failure : ' + err.statusText);
+                        location.reload();
+                    }
+                });
+            } else {
+                alert("FormData is not supported in the browser.");
+            }
+        });
+
+
+        $(".custom-file-input").on("change", function () {
+
+            console.log('File data : ' + $(this).val());
+
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+
+            $('#btnUpload').removeClass('disabled');
+            $('#btnUpload').prop('disabled', false);
+
+        });
+    });
+
+</script>
+
+<div class="row" style="padding-left:15px">
+    <div class="col-lg-10">
+        <hr />
+        <div class="h3">Current Files</div>
+        <hr />
+    </div>
+</div>
+
+<div class="row" style="padding-left:5px; padding-right:5px;">
+    @foreach (var image in Model.Images)
+    {
+        <div class="col-sm-4 col-lg-3">
+            <div class="single-service-area mb-80 wow fadeInUp" data-wow-delay="200ms">
+                <img src="~/@image.ImageLocation" style=" height: 100%; max-height:100px; width:100%; max-width:100px">
+                <h5>@image.ImageName</h5>
+            </div>
+        </div>
+    }
+</div>

@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using HairDemoSite.Areas.Identity;
 
 namespace HairDemoSite.Areas.ClientAdmin.Controllers
 {
