@@ -31,6 +31,11 @@
 </div>
 
 <script>
+
+    var urlStart = '@Html.Raw(Model.URLqualifier)';
+
+    console.log('URL Start = ' + urlStart);
+
     $(document).ready(function () {
         $('#btnUpload').addClass('disabled');
         $('#btnUpload').prop('disabled', true);
@@ -52,7 +57,7 @@
                 console.log('File Data : ' + fileData);
 
                 $.ajax({
-                    url: '/ClientAdmin/Admin/FileUpload',
+                    url: urlStart + '/ClientAdmin/Admin/FileUpload',
                     type: "POST",
                     contentType: false,
                     processData: false,
@@ -63,7 +68,7 @@
                     },
                     error: function (err) {
                         console.log('Upload failure : ' + err.statusText);
-                        location.reload();
+                        alert('Upload failure : ' + err.statusText);
                     }
                 });
             } else {

@@ -1,4 +1,5 @@
 ﻿using HairDemoSite.Areas.Public.Data.SiteData;
+using Microsoft.AspNetCore.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,17 +9,17 @@ namespace HairDemoSite.Areas.Public.Models
 {
     public class StartPageData
     {
-        public StartPageData(siteDataDbContext context, Carousel headerCarousel, StartPageFlatData startPageFlatData, OurServices ourServices, ImageDBCreator imageDBCreator)
+        public StartPageData(siteDataDbContext context, Carousel headerCarousel, StartPageFlatData startPageFlatData, 
+                             OurServices ourServices, ImageDBCreator imageDBCreator, IWebHostEnvironment hostingEnv)
         {
             HeaderCarousel = headerCarousel;
             StartPageFlatData = startPageFlatData;
             OurServicesData = ourServices;
 
-#if DEBUG
-            BackgroundImageStart = string.Empty;
-#else
-            BackgroundImageStart = "coretest/";
-#endif
+            if (hostingEnv.WebRootPath.Contains("Source2019"))
+                BackgroundImageStart = string.Empty;
+            else
+                BackgroundImageStart = "coretest/";
 
             //imageDBCreator.CreateUpdateImagesData();
 

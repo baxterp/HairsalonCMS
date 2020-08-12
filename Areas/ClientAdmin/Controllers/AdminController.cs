@@ -13,6 +13,8 @@ using System.IO;
 using System.Drawing;
 using System.Runtime.CompilerServices;
 using HairDemoSite.Areas.Public.Data.SiteData;
+using System.Net.Mime;
+using System.Drawing.Imaging;
 
 namespace HairDemoSite.Areas.ClientAdmin.Controllers
 {
@@ -52,21 +54,68 @@ namespace HairDemoSite.Areas.ClientAdmin.Controllers
 
                 foreach (IFormFile file in fileData)
                 {
+                    var fileExtension = file.Name.Split(@".").LastOrDefault().ToLower();
+
+                    if (fileExtension != "bmp" && fileExtension != "gif" && fileExtension != "jpeg" && fileExtension != "jpg" && fileExtension != "tiff" && fileExtension != "png")
+                    {
+                        return BadRequest("File format, " + fileExtension + " is not acceptable, use .bmp, .gif, .jpeg, .jpg, .tiff, .png");
+                    }
+
                     string filename = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
 
                     filename = this.EnsureCorrectFilename(filename);
 
                     var filePath = this.GetPathAndFilename(filename);
 
-                    using (FileStream output = System.IO.File.Create(filePath))
+                    Image img;
+                    using (var reader = new StreamReader(file.OpenReadStream()))
                     {
-                        await file.CopyToAsync(output);
+                        using (var memstream = new MemoryStream())
+                        {
+                            reader.BaseStream.CopyTo(memstream);
+                            img = Image.FromStream(memstream, true);
+                        }
                     }
-
-                    Image img = Image.FromFile(filePath);
 
                     var width = img.Width;
                     var height = img.Height;
+
+                    if (height > 1024 || width > 1024)
+                    {
+                        int newHeight = 0;
+                        int newWidth = 0;
+
+                        if (height > 1024)
+                        {
+                            newWidth = 1024;                            
+                            newHeight = (int)(((double)height / (double)width) * 1024);
+
+                        }
+                        else if(width > 1024)
+                        {
+                            newHeight = 1024;
+                            newWidth = (int)(((double)width / (double)height) * 1024);
+                        }
+
+                        var newFile = new Bitmap(img, new Size(newWidth, newHeight));
+                        newFile.Save(filePath, ImageFormat.Jpeg);
+
+                        height = newHeight;
+                        width = newWidth;
+                    }
+                    else
+                    {
+                        using (FileStream output = System.IO.File.Create(filePath))
+                        {
+                            await file.CopyToAsync(output);
+                        }
+
+                        img = Image.FromFile(filePath);
+
+                        width = img.Width;
+                        height = img.Height;
+
+                    }
 
                     var dataToSave = new PublicImages
                     {
@@ -83,7 +132,7 @@ namespace HairDemoSite.Areas.ClientAdmin.Controllers
             }
             catch (Exception ex)
             {
-                return NotFound(ex.Message);
+                return BadRequest(ex.Message);
             }
         }
 
