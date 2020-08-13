@@ -4,3 +4,8 @@
     /*    background-color: #6790bc;*/
     background-color: #7ea1c7;
 }
+
+.ml-auto .dropdown-menu {
+    left: auto !important;
+    right: 0px;
+}

@@ -23,7 +23,6 @@
   <ItemGroup>
     <Folder Include="Controllers\" />
     <Folder Include="wwwroot\admin\img\" />
-    <Folder Include="wwwroot\admin\js\" />
     <Folder Include="wwwroot\admin\scss\" />
     <Folder Include="wwwroot\public\css\default-assets\" />
     <Folder Include="wwwroot\public\css\fonts\" />
