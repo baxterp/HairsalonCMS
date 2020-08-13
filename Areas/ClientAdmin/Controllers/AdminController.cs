@@ -62,8 +62,9 @@ namespace HairDemoSite.Areas.ClientAdmin.Controllers
                     }
 
                     string filename = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-
                     filename = this.EnsureCorrectFilename(filename);
+
+                    //string filename = DateTime.Now.ToString("dd_MM_yyyy HH-mm-ss") + "." + fileExtension;
 
                     var filePath = this.GetPathAndFilename(filename);
 
@@ -80,7 +81,7 @@ namespace HairDemoSite.Areas.ClientAdmin.Controllers
                     var width = img.Width;
                     var height = img.Height;
 
-                    if (height > 1024 || width > 1024)
+                    if ((width * height) > 1000000 )
                     {
                         int newHeight = 0;
                         int newWidth = 0;
@@ -140,6 +141,15 @@ namespace HairDemoSite.Areas.ClientAdmin.Controllers
         {
             if (filename.Contains("\\"))
                 filename = filename.Substring(filename.LastIndexOf("\\") + 1);
+
+            if(filename.Length > 50)
+            {
+                var fileExtension = "." + filename.Split(@".").LastOrDefault().ToLower();
+                var shortFilename = filename.Replace(fileExtension, string.Empty).Substring(0, 50 - fileExtension.Length);
+                var newFilename = shortFilename + fileExtension;
+
+                return newFilename;
+            }
 
             return filename;
         }

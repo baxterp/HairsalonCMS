@@ -47,7 +47,7 @@
                 <tr>
                     <td style="height: 150px; width:200px; max-width:200px; text-align:left; overflow:visible">
                         <img id="previewImageCarousel" src="~/public/img/bg-img/1.jpg" style="height:100%; width:100%; object-fit: contain; padding-bottom:10px;" />
-                        <select onchange="setPreviewImageCarousel(this.value)">
+                        <select onchange="setPreviewImageCarousel(this.value)" style="max-width:250px">
                             @foreach (var image in Model.PublicImages)
                             {
                                 <option value="@image.ImageLocation">@image.ImageName</option>
@@ -127,7 +127,7 @@
                 <tr>
                     <td style="height: 150px; width:200px; max-width:200px; text-align:left; overflow:visible">
                         <img id="previewImageServices" src="~/public/img/bg-img/1.jpg" style="height:100%; width:100%; object-fit: contain; padding-bottom:10px;" />
-                        <select onchange="setPreviewImageServices(this.value)">
+                        <select onchange="setPreviewImageServices(this.value)" style="max-width:190px">
                             @foreach (var image in Model.PublicImages)
                             {
                                 <option value="@image.ImageLocation">@image.ImageName</option>
