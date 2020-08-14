@@ -86,16 +86,16 @@ namespace HairDemoSite.Areas.ClientAdmin.Controllers
                         int newHeight = 0;
                         int newWidth = 0;
 
-                        if (height > 1024)
+                        if (height > 1000)
                         {
-                            newWidth = 1024;                            
-                            newHeight = (int)(((double)height / (double)width) * 1024);
+                            newWidth = 1000;                            
+                            newHeight = (int)(((double)height / (double)width) * 1000);
 
                         }
-                        else if(width > 1024)
+                        else if(width > 1000)
                         {
-                            newHeight = 1024;
-                            newWidth = (int)(((double)width / (double)height) * 1024);
+                            newHeight = 1000;
+                            newWidth = (int)(((double)width / (double)height) * 1000);
                         }
 
                         var newFile = new Bitmap(img, new Size(newWidth, newHeight));

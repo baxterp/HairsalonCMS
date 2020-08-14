@@ -65,8 +65,19 @@ namespace HairDemoSite.Areas.Public.Data.SiteData
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
+                entity.Property(e => e.IconImageLocation)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.OurServicesMessage)
-                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.PhoneNumber)
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.WelcomeMessage)
                     .HasMaxLength(200)
                     .IsUnicode(false);
             });

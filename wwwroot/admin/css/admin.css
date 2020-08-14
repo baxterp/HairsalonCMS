@@ -9,3 +9,25 @@
     left: auto !important;
     right: 0px;
 }
+
+.mfp-container .mfp-image-holder .mfp-s-ready {
+    overflow-wrap:break-word;
+}
+/*
+table .table-bordered {
+    border: 1px grey;
+    margin-top: 20px;
+}
+
+    table.table-bordered > thead > tr > th {
+        border: 1px grey;
+    }
+
+    table.table-bordered > tbody > tr > td {
+        border: 1px grey;
+    }*/
+
+.table-bordered {
+    border: 1px solid #dee2e6;
+    border-collapse:separate;
+}

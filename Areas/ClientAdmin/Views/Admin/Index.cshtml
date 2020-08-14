@@ -17,7 +17,7 @@
 </div>
 <div class="row" style="padding-left:15px; padding-right:15px;">
     <div class="col-xl-12">
-        <table class="table">
+        <table class="table table-bordered">
             <thead>
                 <tr>
                     <th scope="col">Tile Image</th>
@@ -30,7 +30,7 @@
                 @foreach (var tile in Model.HeaderCarousel.Tiles)
                 {
                     <tr>
-                        <td><img src="@tile.TileImageLocation" style="max-height:100px" /></td>
+                        <td><img src="@tile.TileImageLocation" style="max-height:100px" title="@tile.TileImageLocation.Split(@"/").LastOrDefault()"/></td>
                         <td>@tile.TileTitle</td>
                         <td>@tile.TileMessage</td>
                         <td style="vertical-align:central">
@@ -97,7 +97,7 @@
 
 <div class="row" style="padding-left:15px; padding-right:15px;">
     <div class="col-xl-12">
-        <table class="table">
+        <table class="table table-bordered">
             <thead>
                 <tr>
                     <th scope="col">Service Image</th>
@@ -110,7 +110,7 @@
                 @foreach (var service in Model.OurServicesData.OurServicesData)
                 {
                     <tr>
-                        <td><img src="@service.ServiceImageLocation" style="max-height:100px" /></td>
+                        <td><img src="@service.ServiceImageLocation" style="max-height:100px"  title="@service.ServiceImageLocation.Split(@"/").LastOrDefault()"/></td>
                         <td>@service.ServiceName</td>
                         <td>@service.ServiceDescription</td>
                         <td style="vertical-align:central">

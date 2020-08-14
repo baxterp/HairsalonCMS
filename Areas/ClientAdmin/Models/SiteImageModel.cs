@@ -11,17 +11,16 @@ namespace HairDemoSite.Areas.ClientAdmin.Models
     {
         public SiteImageModel(siteDataDbContext context, IWebHostEnvironment hostingEnv)
         {
-            if (hostingEnv.WebRootPath.Contains("Source2019"))
-                URLqualifier = string.Empty;
-            else
-                URLqualifier = "/coretest";
+            //if (hostingEnv.WebRootPath.Contains("Source2019"))
+            //    URLqualifier = string.Empty;
+            //else
+            //    URLqualifier = string.Empty;
 
             var siteImages = context.PublicImages.Select(img => new ImagesData()
             {
                 ImagesID = img.ImageId,
                 ImageName = img.ImageName,
                 ImageLocation = img.ImageLocation
-
             });
 
             Images = siteImages.OrderByDescending(d => d.ImagesID).ToList();

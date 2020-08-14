@@ -16,10 +16,10 @@ namespace HairDemoSite.Areas.Public.Models
             StartPageFlatData = startPageFlatData;
             OurServicesData = ourServices;
 
-            if (hostingEnv.WebRootPath.Contains("Source2019"))
-                BackgroundImageStart = string.Empty;
-            else
-                BackgroundImageStart = "coretest/";
+            //if (hostingEnv.WebRootPath.Contains("Source2019"))
+            //    BackgroundImageStart = string.Empty;
+            //else
+            //    BackgroundImageStart = string.Empty;
 
             //imageDBCreator.CreateUpdateImagesData();
 
