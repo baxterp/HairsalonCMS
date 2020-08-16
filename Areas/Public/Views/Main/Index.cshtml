@@ -1,6 +1,6 @@
 ﻿@model HairDemoSite.Areas.Public.Models.StartPageData;
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Hairdemo site";
     Layout = "~/Areas/Public/Views/_Layout.cshtml";
 }
 
@@ -17,12 +17,12 @@
             <div class="row h-100 align-items-center">
                 <div class="col-5">
                     <div class="top-header-content">
-                        <p>Welcome to Betty Boop</p>
+                        <p>@Model.StartPageFlatData.WelcomeMessage</p>
                     </div>
                 </div>
                 <div class="col-7">
                     <div class="top-header-content text-right">
-                        <p>Call us: (+12)-345-6789</p>
+                        <p>Call us: @Model.StartPageFlatData.PhoneNumber</p>
                     </div>
                 </div>
             </div>
@@ -37,7 +37,7 @@
                 <nav class="classy-navbar justify-content-between" id="akameNav">
 
                     <!-- Logo -->
-                    <a class="nav-brand" href="/"><img src="~/public/img/saved/logo.jpg" style="max-height:55px"></a>
+                    <a class="nav-brand" href="/"><img src="@Model.StartPageFlatData.IconImageLocation" style="max-height:55px"></a>
 
                     <!-- Navbar Toggler -->
                     <div class="classy-navbar-toggler">

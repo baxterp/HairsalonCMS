@@ -1,4 +1,5 @@
 ﻿<!DOCTYPE html>
+@inject HairDemoSite.Areas.Public.Models.StartPageFlatData StartPageData
 
 <html>
 <head>
@@ -8,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Title -->
-    <title>Akame - Hair Salon HTML Template</title>
+    <title>@StartPageData.PageTitle</title>
 
     <!-- Favicon -->
     <link rel="icon" href="~/public/img/core-img/favicon.ico">

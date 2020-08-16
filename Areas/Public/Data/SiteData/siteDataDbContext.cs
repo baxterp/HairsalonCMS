@@ -65,11 +65,13 @@ namespace HairDemoSite.Areas.Public.Data.SiteData
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
-                entity.Property(e => e.IconImageLocation)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
+                entity.Property(e => e.IconImageId).HasColumnName("IconImageID");
 
                 entity.Property(e => e.OurServicesMessage)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.PageTitle)
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
@@ -80,6 +82,11 @@ namespace HairDemoSite.Areas.Public.Data.SiteData
                 entity.Property(e => e.WelcomeMessage)
                     .HasMaxLength(200)
                     .IsUnicode(false);
+
+                entity.HasOne(d => d.IconImage)
+                    .WithMany(p => p.MpFlatPageData)
+                    .HasForeignKey(d => d.IconImageId)
+                    .HasConstraintName("FK_mpFlatPageData_publicImages");
             });
 
             modelBuilder.Entity<MpOurServices>(entity =>

@@ -40,10 +40,10 @@ namespace HairDemoSite
             //});
 
             services.AddDbContext<siteDataDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("SiteConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("RemoteConnection"))); // LocalConnection
 
             services.AddDbContext<LoginDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("SiteConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("RemoteConnection"))); // LocalConnection
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()

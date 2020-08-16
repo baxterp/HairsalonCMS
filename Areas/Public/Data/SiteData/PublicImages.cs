@@ -8,6 +8,7 @@ namespace HairDemoSite.Areas.Public.Data.SiteData
         public PublicImages()
         {
             MpCarousel = new HashSet<MpCarousel>();
+            MpFlatPageData = new HashSet<MpFlatPageData>();
             MpOurServices = new HashSet<MpOurServices>();
         }
 
@@ -18,6 +19,7 @@ namespace HairDemoSite.Areas.Public.Data.SiteData
         public int? ImageHeight { get; set; }
 
         public virtual ICollection<MpCarousel> MpCarousel { get; set; }
+        public virtual ICollection<MpFlatPageData> MpFlatPageData { get; set; }
         public virtual ICollection<MpOurServices> MpOurServices { get; set; }
     }
 }

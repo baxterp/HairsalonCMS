@@ -38,17 +38,17 @@
                         </td>
                     </tr>
                 }
-                <tr>
-                    <td class="h5">Add new Tile to Carousel</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
+            <tr>
+                <td class="h5">Add new Tile to Carousel</td>
+                <td class="h5">Tile Title</td>
+                <td class="h5">Tile Text</td>
+                <td></td>
+            </tr>
                 <tr>
                     <td style="height: 150px; width:200px; max-width:200px; text-align:left; overflow:visible">
                         <img id="previewImageCarousel" src="~/public/img/bg-img/1.jpg" style="height:100%; width:100%; object-fit: contain; padding-bottom:10px;" />
                         <select onchange="setPreviewImageCarousel(this.value)" style="max-width:250px">
-                            @foreach (var image in Model.PublicImages)
+                            @foreach (var image in Model.PublicImages.OrderByDescending(o => o.ImageId))
                             {
                                 <option value="@image.ImageLocation">@image.ImageName</option>
                             }
@@ -128,7 +128,7 @@
                     <td style="height: 150px; width:200px; max-width:200px; text-align:left; overflow:visible">
                         <img id="previewImageServices" src="~/public/img/bg-img/1.jpg" style="height:100%; width:100%; object-fit: contain; padding-bottom:10px;" />
                         <select onchange="setPreviewImageServices(this.value)" style="max-width:190px">
-                            @foreach (var image in Model.PublicImages)
+                            @foreach (var image in Model.PublicImages.OrderByDescending(o => o.ImageId))
                             {
                                 <option value="@image.ImageLocation">@image.ImageName</option>
                             }
@@ -145,6 +145,24 @@
         </table>
     </div>
 </div>
+
+<script language="JavaScript" type="text/javascript">
+    function sortlist() {
+        var lb = document.getElementById('mylist');
+        arrTexts = new Array();
+
+        for (i = 0; i < lb.length; i++) {
+            arrTexts[i] = lb.options[i].text;
+        }
+
+        arrTexts.sort();
+
+        for (i = 0; i < lb.length; i++) {
+            lb.options[i].text = arrTexts[i];
+            lb.options[i].value = arrTexts[i];
+        }
+    }
+</script>
 
 <!-- Modal -->
 <div class="modal fade" id="confirmModalServices" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
