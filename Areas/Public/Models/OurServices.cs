@@ -12,14 +12,14 @@ namespace HairDemoSite.Areas.Public.Models
         {
             try
             {
-                var ourServices = context.MpOurServices.Select(c => new OurServicesData()
+                var ourServices = context.MpOurServices.Select(service => new OurServicesData()
                 {
-                    ServiceID = c.ServiceId,
-                    ServiceName = c.ServiceName,
-                    ServiceDescription = c.ServiceDescription,
+                    ServiceID = service.ServiceId,
+                    ServiceName = service.ServiceName,
+                    ServiceDescription = service.ServiceDescription,
                     ServiceImageLocation = context.PublicImages
-                                            .Where(w => w.ImageId == c.ImageId)
-                                            .Select(i => i.ImageLocation).FirstOrDefault()
+                                            .Where(images => images.ImageId == service.ImageId)
+                                            .Select(img => img.ImageLocation).FirstOrDefault()
                 }).ToList();
 
                 OurServicesData = ourServices;
