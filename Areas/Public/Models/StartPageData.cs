@@ -4,14 +4,21 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http.Extensions;
+using System.Net.Http;
+using Microsoft.AspNetCore.Http;
 
 namespace HairDemoSite.Areas.Public.Models
 {
     public class StartPageData
     {
         public StartPageData(siteDataDbContext context, Carousel headerCarousel, StartPageFlatData startPageFlatData, 
-                             OurServices ourServices, ImageDBCreator imageDBCreator, IWebHostEnvironment hostingEnv)
+                             OurServices ourServices, ImageDBCreator imageDBCreator, IWebHostEnvironment hostingEnv, IHttpContextAccessor httpContextAccessor)
         {
+            //var url = RequestCo  Context.Request.Url.AbsoluteUri;
+
+            //var url = httpContextAccessor.HttpContext.Request.Host.Value;
+
             HeaderCarousel = headerCarousel;
             StartPageFlatData = startPageFlatData;
             OurServicesData = ourServices;

@@ -56,6 +56,7 @@ namespace HairDemoSite
             services.AddTransient<OurServices>();
             services.AddTransient<ImageDBCreator>();
             services.AddTransient<SiteImageModel>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddLogging();
 

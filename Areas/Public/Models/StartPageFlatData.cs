@@ -26,7 +26,7 @@ namespace HairDemoSite.Areas.Public.Models
                 PageTitle = context.MpFlatPageData.Select(s => s.PageTitle).FirstOrDefault();
 
                 int? iconImageID = context.MpFlatPageData.Select(s => s.IconImageId).FirstOrDefault();
-                IconImageLocation = URLqualifier + context.PublicImages
+                IconImageLocation = context.PublicImages
                                         .Where(images => images.ImageId == iconImageID)
                                         .Select(s => s.ImageLocation).FirstOrDefault();
 

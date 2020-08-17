@@ -10,6 +10,93 @@
         <hr />
     </div>
 </div>
+
+
+<div class="row" style="padding-left:15px; padding-right:15px; padding-bottom:50px">
+    <div class="col-xl-12">
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <td style="width:60%" class="h5">Welcome Message</td>
+                    <td style="width:20%">
+                        <textarea id="txtWelcomeMessage">@Model.StartPageFlatData.WelcomeMessage</textarea>
+                    </td>
+                    <td style="width:20%; vertical-align: middle; text-align: center;">
+                        <button class="btn btn-primary" onclick="SaveAllFlatData()">Save All</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:60%" class="h5">Telephone number</td>
+                    <td style="width:20%">
+                        <textarea id="txtPhoneNumber">@Model.StartPageFlatData.PhoneNumber</textarea>
+                    </td>
+                    <td style="width:20%">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:60%" class="h5">Icon Image</td>
+                    <td style="width: 20%; height: 150px; max-width: 200px; text-align: left; overflow: visible">
+                        <img id="previewImageIcon" style="height:100%; width:100%; object-fit: contain; padding-bottom:10px;" />
+                        <select id="imgIconSelect" onchange="setPreviewImageIcon(this.value)" style="width:100%">
+                            @foreach (var image in Model.PublicImages.OrderByDescending(o => o.ImageId))
+                            {
+                                <option value="@image.ImageLocation">@image.ImageName</option>
+                            }
+                        </select>
+                    </td>
+                    <td style="width:20%">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#imgIconSelect').val('@Model.StartPageFlatData.IconImageLocation');
+        $('#previewImageIcon').attr("src", '@Model.StartPageFlatData.IconImageLocation');
+    });
+
+    function setPreviewImageIcon(imageLocation) {
+        console.log('Image Location' + imageLocation)
+        $('#previewImageIcon').attr("src", imageLocation);
+    }
+
+    function SaveAllFlatData() {
+
+        var newIconImageLocation = $('#previewImageIcon').attr('src');
+        var newWelcomeMessage = $('#txtWelcomeMessage').val();
+        var newTelephoneNumber = $('#txtPhoneNumber').val();
+
+        var data = JSON.stringify({
+            IconImage: newIconImageLocation,
+            WelcomeMessage: newWelcomeMessage,
+            PhoneNumber: newTelephoneNumber
+        });
+
+        $.ajax({
+            url: 'API/MPFlatData/SaveFlatData',
+            type: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            data: data,
+            success: function (result) {
+                console.log('Success: ' + result);
+                location.reload();
+            },
+            error: function (data) {
+                console.log('Error: ' + data);
+            }
+        });
+    }
+
+
+</script>
+
+
 <div class="row" style="padding-left:15px; padding-right:15px;">
     <div class="col-xl-12">
         <div class="h3">Header Carousel</div>
@@ -30,7 +117,7 @@
                 @foreach (var tile in Model.HeaderCarousel.Tiles)
                 {
                     <tr>
-                        <td><img src="@tile.TileImageLocation" style="max-height:100px" title="@tile.TileImageLocation.Split(@"/").LastOrDefault()"/></td>
+                        <td><img src="@tile.TileImageLocation" style="max-height:100px" title="@tile.TileImageLocation.Split(@"/").LastOrDefault()" /></td>
                         <td>@tile.TileTitle</td>
                         <td>@tile.TileMessage</td>
                         <td style="vertical-align:central">
@@ -38,12 +125,12 @@
                         </td>
                     </tr>
                 }
-            <tr>
-                <td class="h5">Add new Tile to Carousel</td>
-                <td class="h5">Tile Title</td>
-                <td class="h5">Tile Text</td>
-                <td></td>
-            </tr>
+                <tr>
+                    <td class="h5">Add new Tile to Carousel</td>
+                    <td class="h5">Tile Title</td>
+                    <td class="h5">Tile Text</td>
+                    <td></td>
+                </tr>
                 <tr>
                     <td style="height: 150px; width:200px; max-width:200px; text-align:left; overflow:visible">
                         <img id="previewImageCarousel" src="~/public/img/bg-img/1.jpg" style="height:100%; width:100%; object-fit: contain; padding-bottom:10px;" />
@@ -89,7 +176,7 @@
 </div>
 <!-- Modal -->
 
-<div class="row" style="padding-left:15px; padding-right:15px; padding-top:100px">
+<div class="row" style="padding-left:15px; padding-right:15px; padding-top:50px">
     <div class="col-xl-12">
         <div class="h3">Our Services</div>
     </div>
@@ -110,7 +197,7 @@
                 @foreach (var service in Model.OurServicesData.OurServicesData)
                 {
                     <tr>
-                        <td><img src="@service.ServiceImageLocation" style="max-height:100px"  title="@service.ServiceImageLocation.Split(@"/").LastOrDefault()"/></td>
+                        <td><img src="@service.ServiceImageLocation" style="max-height:100px" title="@service.ServiceImageLocation.Split(@"/").LastOrDefault()" /></td>
                         <td>@service.ServiceName</td>
                         <td>@service.ServiceDescription</td>
                         <td style="vertical-align:central">
