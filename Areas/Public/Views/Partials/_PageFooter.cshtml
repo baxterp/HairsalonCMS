@@ -1,0 +1,107 @@
+﻿
+@inject HairDemoSite.Areas.Public.Models.PageFooter FooterData
+@inject HairDemoSite.Areas.Public.Models.StartPageFlatData FlatData
+<!-- Footer Area Start -->
+<footer class="footer-area section-padding-80-0">
+    <div class="container">
+        <div class="row justify-content-between">
+
+            <!-- Single Footer Widget -->
+            <div class="col-12 col-sm-6 col-md-4">
+                <div class="single-footer-widget mb-80">
+                    <!-- Footer Logo -->
+                    <a href="#" class="footer-logo"><img src="~/@FooterData.IconImageLocation" style="max-height:70px" alt=""></a>
+
+                    <p class="mb-30">@FooterData.FooterText</p>
+
+                    <!-- Here -->
+                </div>
+            </div>
+
+            <!-- Single Footer Widget -->
+            <div class="col-12 col-sm-6 col-md-4 col-xl-3">
+                <div class="single-footer-widget mb-80">
+                    <!-- Widget Title -->
+                    <h4 class="widget-title">Opening times</h4>
+
+                    <!-- Open Times -->
+                    <div class="open-time">
+                        @if (!string.IsNullOrEmpty(FooterData.OpeningTimes1))
+                        {
+                            <p>@FooterData.OpeningTimes1</p>
+                        }
+                        @if (!string.IsNullOrEmpty(FooterData.OpeningTimes2))
+                        {
+                            <p>@FooterData.OpeningTimes2</p>
+                        }
+                        @if (!string.IsNullOrEmpty(FooterData.OpeningTimes3))
+                        {
+                            <p>@FooterData.OpeningTimes3</p>
+                        }
+                        @if (!string.IsNullOrEmpty(FooterData.OpeningTimes4))
+                        {
+                            <p>@FooterData.OpeningTimes4</p>
+                        }
+                    </div>
+
+                    <!-- Social Info -->
+                    <div class="social-info">
+                        @if (!string.IsNullOrEmpty(FooterData.FaceBook))
+                        {
+                            <a href="@FooterData.FaceBook" class="facebook"><i class="fa fa-facebook"></i></a>
+                        }
+                        @if (!string.IsNullOrEmpty(FooterData.Twitter))
+                        {
+                            <a href="@FooterData.Twitter" class="twitter"><i class="fa fa-twitter"></i></a>
+                        }
+                        @if (!string.IsNullOrEmpty(FooterData.Instagram))
+                        {
+                            <a href="@FooterData.Instagram" class="instagram"><i class="fa fa-instagram"></i></a>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <!-- Single Footer Widget -->
+            <div class="col-12 col-md-4 col-xl-3">
+                <div class="single-footer-widget mb-80">
+
+                    <!-- Widget Title -->
+                    <h4 class="widget-title">Contact Us</h4>
+
+                    <!-- Contact Address -->
+                    <div class="contact-address">
+                        @if (!string.IsNullOrEmpty(FlatData.PhoneNumber))
+                        {
+                            <p>Tel: @FlatData.PhoneNumber</p>
+                        }
+                        @if (!string.IsNullOrEmpty(FooterData.EmailAddress))
+                        {
+                            <p>E-mail: @FooterData.EmailAddress</p>
+                        }
+
+                        @if (!string.IsNullOrEmpty(FooterData.Address1))
+                        {
+                            <p>Address: @FooterData.Address1</p>
+                        }
+                        @if (!string.IsNullOrEmpty(FooterData.Address2))
+                        {
+                            <p>@FooterData.Address2</p>
+                        }
+                        @if (!string.IsNullOrEmpty(FooterData.Address3))
+                        {
+                            <p>@FooterData.Address3</p>
+                        }
+                        @if (!string.IsNullOrEmpty(FooterData.Address4))
+                        {
+                            <p>@FooterData.Address4</p>
+                        }
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</footer>
+<!-- Footer Area End -->

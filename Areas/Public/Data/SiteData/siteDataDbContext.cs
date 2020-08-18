@@ -18,15 +18,16 @@ namespace HairDemoSite.Areas.Public.Data.SiteData
         public virtual DbSet<MpCarousel> MpCarousel { get; set; }
         public virtual DbSet<MpFlatPageData> MpFlatPageData { get; set; }
         public virtual DbSet<MpOurServices> MpOurServices { get; set; }
+        public virtual DbSet<PageFooter> PageFooter { get; set; }
         public virtual DbSet<PublicImages> PublicImages { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-//            if (!optionsBuilder.IsConfigured)
-//            {
+            if (!optionsBuilder.IsConfigured)
+            {
 //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
 //                optionsBuilder.UseSqlServer("Server=sql7.hostinguk.net;Database=hairdemo;integrated security=False;User ID=hairdemo;Password=::L1ghting");
-//            }
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -115,6 +116,71 @@ namespace HairDemoSite.Areas.Public.Data.SiteData
                     .HasForeignKey(d => d.ImageId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_mpOurServices_publicImages");
+            });
+
+            modelBuilder.Entity<PageFooter>(entity =>
+            {
+                entity.ToTable("pageFooter", "dbo");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.Address1)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Address2)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Address3)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Address4)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Address5)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.EmailAddress)
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.FaceBook)
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.FooterText)
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IconImageId).HasColumnName("IconImageID");
+
+                entity.Property(e => e.Instagram)
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.OpeningTimes1)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.OpeningTimes2)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.OpeningTimes3)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.OpeningTimes4)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Twitter)
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<PublicImages>(entity =>
