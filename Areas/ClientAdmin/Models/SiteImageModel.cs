@@ -12,9 +12,9 @@ namespace HairDemoSite.Areas.ClientAdmin.Models
         public SiteImageModel(siteDataDbContext context, IWebHostEnvironment hostingEnv)
         {
             if (hostingEnv.WebRootPath.Contains("Source2019"))
-                URLqualifier = string.Empty;
+                URLqualifier = @"/";
             else
-                URLqualifier = "haircms/";
+                URLqualifier = @"http://brpsoft.co.uk/haircms/";
 
             var siteImages = context.PublicImages.Select(img => new ImagesData()
             {

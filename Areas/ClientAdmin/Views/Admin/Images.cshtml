@@ -53,11 +53,13 @@
                     fileData.append(files[i].name, files[i]);
                 }
 
-                console.log('Files : ' + files);
-                console.log('File Data : ' + fileData);
+                //console.log('Files : ' + files);
+                //console.log('File Data : ' + fileData);
+
+                console.log('URL Start : ' + urlStart);
 
                 $.ajax({
-                    url: urlStart + '/ClientAdmin/Admin/FileUpload',
+                    url: urlStart + 'API/MPCarousel/FileUpload',
                     type: "POST",
                     contentType: false,
                     processData: false,
